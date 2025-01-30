@@ -120,6 +120,11 @@ end)
 
 -- Enable break indent
 vim.opt.breakindent = true
+vim.opt.wrap = false -- Don't wrap lines
+vim.opt.tabstop = 4 -- Tab width
+vim.opt.shiftwidth = 4 -- Indentation width
+vim.opt.expandtab = true -- Use spaces for tab
+vim.opt.termguicolors = true -- True color support
 
 -- Save undo history
 vim.opt.undofile = true
@@ -152,7 +157,7 @@ vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
-
+vim.opt.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50' -- Cursor shape
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
@@ -184,10 +189,25 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
+-- Split management
+vim.keymap.set('n', '<leader>sv', ':vsp<CR>', { desc = 'Split vertically' })
+vim.keymap.set('n', '<leader>sh', ':sp<CR>', { desc = 'Split horizontally' })
+vim.keymap.set('n', '<leader>=', '<C-w>=', { desc = 'Make splits equal size' })
+
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Save file' })
+vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = 'Quit' })
+
+-- Tab management
+vim.keymap.set('n', '<leader>tn', ':tabnew<CR>', { desc = 'New tab' })
+vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close tab' })
+vim.keymap.set('n', '<leader>to', ':tabonly<CR>', { desc = 'Close other tabs' })
+vim.keymap.set('n', '<leader>th', ':tabprevious<CR>', { desc = 'Previous tab' })
+vim.keymap.set('n', '<leader>tl', ':tabnext<CR>', { desc = 'Next tab' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -849,10 +869,10 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- vim.cmd.colorscheme 'tokyonight-night'
 
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      --vim.cmd.hi 'Comment gui=none'
     end,
   },
 
@@ -942,7 +962,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
