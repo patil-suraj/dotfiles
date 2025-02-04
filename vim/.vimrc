@@ -111,7 +111,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'    
 
 " Code Navigation
-Plug 'universal-ctags/ctags' 
+"Plug 'universal-ctags/ctags' 
 Plug 'ludovicchabant/vim-gutentags'
 
 " Search
