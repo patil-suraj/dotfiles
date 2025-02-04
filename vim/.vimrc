@@ -44,6 +44,7 @@ if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
     set termguicolors
   endif
 endif
+
 "----------------------------------------
 " Search Settings
 "----------------------------------------
@@ -142,15 +143,15 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'    
 
 " Code Navigation
-"Plug 'universal-ctags/ctags' 
-"Plug 'ludovicchabant/vim-gutentags'
+" Plug 'universal-ctags/ctags' 
+" Plug 'ludovicchabant/vim-gutentags'
 
 " Search
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 " Python Development
-"Plug 'davidhalter/jedi-vim'          
+" Plug 'davidhalter/jedi-vim'          
 Plug 'Vimjas/vim-python-pep8-indent' 
 Plug 'vim-python/python-syntax'      
 Plug 'tmhedberg/SimpylFold'         
