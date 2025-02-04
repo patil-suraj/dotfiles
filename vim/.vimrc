@@ -112,7 +112,7 @@ Plug 'preservim/nerdtree'
 
 " Code Navigation
 "Plug 'universal-ctags/ctags' 
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 
 " Search
 Plug 'nvim-lua/plenary.nvim'
