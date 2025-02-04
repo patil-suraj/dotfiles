@@ -3,7 +3,6 @@
 "----------------------------------------
 set nocompatible              
 let mapleader=" "             
-syntax enable
 set number                    
 set cursorline               
 set termguicolors            
@@ -15,6 +14,7 @@ nnoremap <leader>q :q<cr>
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
+syntax on 
 
 " Set to auto read when a file is changed from the outside
 set autoread
