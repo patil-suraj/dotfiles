@@ -3,7 +3,7 @@
 "----------------------------------------
 set nocompatible              
 let mapleader=" "             
-syntax on                     
+syntax enable
 set number                    
 set cursorline               
 set termguicolors            
@@ -11,6 +11,14 @@ set termguicolors
 " Fast saving, qutting
 nnoremap <leader>w :w!<cr>
 nnoremap <leader>q :q<cr>
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+au FocusGained,BufEnter * silent! checktime
 
 "----------------------------------------
 " UI Configuration
@@ -49,6 +57,14 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git etc. anyway...
+set nobackup
+set nowb
+set noswapfile
 
 "----------------------------------------
 " Window and Tab Management
@@ -134,7 +150,7 @@ colorscheme gruvbox
 
 " NERDTree
 let NERDTreeMapOpenInTab='<ENTER>'
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=35
