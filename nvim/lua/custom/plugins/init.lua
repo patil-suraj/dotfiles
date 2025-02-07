@@ -4,22 +4,23 @@
 -- See the kickstart.nvim README for more information
 return {
   {
-    'projekt0n/github-nvim-theme',
-    name = 'github-theme',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
+    'sainnhe/gruvbox-material',
+    priority = 1000,
     config = function()
-      vim.cmd 'colorscheme github_dark_default'
-    end,
-  },
-
-  -- File explorer
-  {
-    'nvim-tree/nvim-tree.lua',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('nvim-tree').setup()
-      vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Toggle file explorer' })
+      -- Configure Gruvbox Material
+      vim.g.gruvbox_material_background = 'medium' -- soft, medium, hard
+      vim.g.gruvbox_material_foreground = 'material' -- material, mix, original
+      vim.g.gruvbox_material_better_performance = 1
+      vim.g.gruvbox_material_enable_bold = 1
+      vim.g.gruvbox_material_enable_italic = 1
+      vim.g.gruvbox_material_sign_column_background = 'none'
+      vim.g.gruvbox_material_diagnostic_text_highlight = 1
+      vim.g.gruvbox_material_diagnostic_line_highlight = 1
+      vim.g.gruvbox_material_diagnostic_virtual_text = 'colored'
+      
+      -- Set colorscheme
+      vim.o.background = 'dark'
+      vim.cmd('colorscheme gruvbox-material')
     end,
   },
 }
