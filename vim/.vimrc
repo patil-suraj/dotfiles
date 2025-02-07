@@ -4,11 +4,19 @@
 set nocompatible              
 let mapleader=" "             
 set number                    
-set cursorline               
+set cursorline          
+set mouse=a     
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
+endif
+
+" use clipboard
+if has('mac')
+  set clipboard=unnamed     " macOS clipboard
+elseif has('unix')
+  set clipboard=unnamedplus " Linux clipboard
 endif
 
 " Fast saving, qutting
@@ -177,7 +185,7 @@ call plug#end()
 colorscheme gruvbox
 
 " NERDTree
-let NERDTreeMapOpenInTab='<ENTER>'
+" let NERDTreeMapOpenInTab='<ENTER>'
 let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
