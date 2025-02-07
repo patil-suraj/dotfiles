@@ -138,8 +138,8 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Theme and UI
-Plug 'morhetz/gruvbox'       
-Plug 'itchyny/lightline.vim' 
+Plug 'morhetz/gruvbox'
+Plug 'itchyny/lightline.vim'
 
 " File Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -152,13 +152,21 @@ Plug 'preservim/nerdtree'
 
 " Search
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
 
 " Python Development
 " Plug 'davidhalter/jedi-vim'          
 Plug 'Vimjas/vim-python-pep8-indent' 
-Plug 'vim-python/python-syntax'      
-Plug 'tmhedberg/SimpylFold'         
+Plug 'vim-python/python-syntax'
+Plug 'tmhedberg/SimpylFold'    
+
+Plug 'ryanoasis/vim-devicons'
+
+Plug 'vim-airline/vim-airline'
+" enable status line always
+set laststatus=2
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_extensions = []
 
 call plug#end()
 
@@ -182,11 +190,6 @@ nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <C-p> :Files<CR>    
 nnoremap <C-g> :Rg<CR>       
 nnoremap <leader>t :Tags<CR> 
-
-" Telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
 
 "----------------------------------------
 " Python Settings
