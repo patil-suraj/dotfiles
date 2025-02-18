@@ -110,7 +110,8 @@ nnoremap <C-l> <C-w>l
 " Tab settings
 set tabline=%!MyTabLine()    
 nnoremap <leader>tn :tabnew<CR>     
-nnoremap <leader>tc :tabclose<CR>   
+nnoremap <leader>tc :tabclose<CR>
+nnoremap <leader>to :tabonly<CR>
 nnoremap <leader>tl :tabnext<CR>    
 nnoremap <leader>th :tabprevious<CR>
 
@@ -190,14 +191,31 @@ let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=35
-nnoremap <leader>nn :NERDTreeToggle<cr>
+nnoremap <leader>e :NERDTreeToggle<cr>
 nnoremap <leader>nb :NERDTreeFromBookmark<Space>
+nnoremap <leader>bf :NERDTreeToggle<CR>:Buffers<CR> " Show buffer list
 nnoremap <leader>nf :NERDTreeFind<cr>
+" Close NERDTree if it's the last window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 
 " FZF
-nnoremap <C-p> :Files<CR>    
-nnoremap <C-g> :Rg<CR>       
-nnoremap <leader>t :Tags<CR> 
+" File search
+nnoremap <leader>sf :Files<CR>
+" Grep search (keep buffers)
+nnoremap <leader>sg :silent grep -r "" .<Left><Left><Left>
+" Word under cursor grep search
+nnoremap <leader>sw :silent grep -r <cword> .<CR>
+" Tags search
+nnoremap <leader>t :Tags<CR>
+" Search history
+nnoremap <leader>s. :History<CR>
+" Search in current buffer
+nnoremap <leader>/ :BLines<CR>
+
+" Open quickfix window automatically after grep
+autocmd QuickFixCmdPost * cwindow
+
 
 "----------------------------------------
 " Python Settings

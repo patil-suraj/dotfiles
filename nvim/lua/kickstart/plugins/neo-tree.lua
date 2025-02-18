@@ -12,6 +12,7 @@ return {
       { "<leader>e", "<cmd>Neotree toggle<CR>", desc = "Toggle Explorer" },
       { "<leader>bf", "<cmd>Neotree buffers<CR>", desc = "Toggle Buffers" },
       { "<leader>gs", "<cmd>Neotree git_status<CR>", desc = "Git Status" },
+      { "<leader>nf", "<cmd>Neotree reveal<CR>", desc = "Find Current Buffer" },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -37,6 +38,10 @@ return {
         width = 30,
         mappings = {
           ["<space>"] = "none",
+        },
+        -- always have the full tree visible
+        auto_expand = {
+          enabled = true,
         },
       },
       default_component_configs = {
