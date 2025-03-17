@@ -202,6 +202,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " FZF
 " File search
 nnoremap <leader>sf :Files<CR>
+" Buffer search
+nnoremap <leader>sb :Buffers<CR>
 " Grep search (keep buffers)
 nnoremap <leader>sg :silent grep -r "" .<Left><Left><Left>
 " Word under cursor grep search
