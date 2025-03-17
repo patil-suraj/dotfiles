@@ -3,7 +3,8 @@
 "----------------------------------------
 set nocompatible              
 let mapleader=" "             
-set number                    
+set number
+set relativenumber
 set cursorline          
 set mouse=a     
 if exists('+termguicolors')
@@ -40,6 +41,7 @@ set laststatus=2
 set noshowmode               
 set signcolumn=yes           
 set background=dark
+set scrolloff=10
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -56,6 +58,14 @@ if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
     set termguicolors
   endif
 endif
+
+" Remap half-page and paragraph movements to center cursor
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap { {zz
+nnoremap } }zz
+nnoremap n nzz
+nnoremap N Nzz
 
 "----------------------------------------
 " Search Settings
@@ -99,7 +109,11 @@ set noswapfile
 "----------------------------------------
 " Split settings
 set splitbelow               
-set splitright               
+set splitright     
+
+" Window split shortcuts
+nnoremap <leader>sh :split<CR>
+nnoremap <leader>sv :vsplit<CR>
 
 " Window navigation
 nnoremap <C-h> <C-w>h       
@@ -148,6 +162,7 @@ call plug#begin('~/.vim/plugged')
 
 " Theme and UI
 Plug 'morhetz/gruvbox'
+Plug 'Yggdroot/indentLine'  " Add indentation guides
 Plug 'itchyny/lightline.vim'
 
 " File Navigation
@@ -184,6 +199,14 @@ call plug#end()
 "----------------------------------------
 " Theme
 colorscheme gruvbox
+
+" IndentLine settings
+let g:indentLine_char = '┊'  " Character to use for indentation lines
+let g:indentLine_enabled = 1 " Enable by default
+let g:indentLine_color_term = 239 " Slightly darker color for the indent guides
+let g:indentLine_concealcursor = 'inc' " Don't hide quotes in json files when cursor is on the line
+let g:indentLine_conceallevel = 2
+nnoremap <leader>ig :IndentLinesToggle<CR> " Toggle indent guides with <space>ig
 
 " NERDTree
 " let NERDTreeMapOpenInTab='<ENTER>'
