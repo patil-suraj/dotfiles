@@ -17,10 +17,9 @@ return {
       vim.g.gruvbox_material_diagnostic_text_highlight = 1
       vim.g.gruvbox_material_diagnostic_line_highlight = 1
       vim.g.gruvbox_material_diagnostic_virtual_text = 'colored'
-      
       -- Set colorscheme
       vim.o.background = 'dark'
-      vim.cmd('colorscheme gruvbox-material')
+      vim.cmd 'colorscheme gruvbox-material'
     end,
   },
 }

@@ -7,7 +7,7 @@ vim.g.have_nerd_font = false
 
 -- Make line numbers default
 vim.opt.number = true
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -80,7 +80,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -314,32 +313,30 @@ require('lazy').setup({
         -- },
         -- pickers = {}
         defaults = {
-          sorting_strategy = "ascending",
-          layout_strategy = "vertical",
+          sorting_strategy = 'ascending',
+          layout_strategy = 'vertical',
           layout_config = {
             vertical = {
-              prompt_position = "top",
+              prompt_position = 'top',
               mirror = true,
               preview_height = 0.4,
             },
           },
           border = true,
           borderchars = {
-            prompt = {"━", "┃", "━", "┃", "┏", "┓", "┛", "┗"},
-            results = {"━", "┃", "━", "┃", "┣", "┫", "┛", "┗"},
-            preview = {"━", "┃", "━", "┃", "┏", "┓", "┛", "┗"},
+            prompt = { '━', '┃', '━', '┃', '┏', '┓', '┛', '┗' },
+            results = { '━', '┃', '━', '┃', '┣', '┫', '┛', '┗' },
+            preview = { '━', '┃', '━', '┃', '┏', '┓', '┛', '┗' },
           },
         },
         extensions = {
           ['ui-select'] = {
-            require('telescope.themes').get_dropdown(
-              {
-                layout_config = {
-                  prompt_position = "top",
-                  mirror = true,
-                },
-              }
-            ),
+            require('telescope.themes').get_dropdown {
+              layout_config = {
+                prompt_position = 'top',
+                mirror = true,
+              },
+            },
           },
         },
       }
@@ -554,10 +551,10 @@ require('lazy').setup({
           settings = {
             python = {
               analysis = {
-                typeCheckingMode = "basic",
+                typeCheckingMode = 'basic',
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
-                diagnosticMode = "workspace",
+                diagnosticMode = 'workspace',
               },
             },
           },
@@ -796,14 +793,14 @@ require('lazy').setup({
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
     dependencies = 'rafamadriz/friendly-snippets',
-  
+
     -- use a release tag to download pre-built binaries
     version = '0.11.0',
     -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
     -- build = 'cargo build --release',
     -- If you use nix, you can build from source using latest nightly rust with:
     -- build = 'nix run .#build-plugin',
-  
+
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
@@ -830,7 +827,7 @@ require('lazy').setup({
 
         -- ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
       },
-  
+
       appearance = {
         -- Sets the fallback highlight groups to nvim-cmp's highlight groups
         -- Useful for when your theme doesn't support blink.cmp
@@ -838,48 +835,48 @@ require('lazy').setup({
         use_nvim_cmp_as_default = true,
         -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- Adjusts spacing to ensure icons are aligned
-        nerd_font_variant = 'mono'
+        nerd_font_variant = 'mono',
       },
-  
+
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
       },
-      
+
       completion = {
         menu = {
           -- Don't automatically show the completion menu
           auto_show = true,
 
           min_width = 15,
-    
+
           -- nvim-cmp style menu
           draw = {
-              columns = {
-                { "label", "label_description", gap = 1 },
-                { "kind_icon", "kind" }
+            columns = {
+              { 'label', 'label_description', gap = 1 },
+              { 'kind_icon', 'kind' },
+            },
+            components = {
+              kind_icon = {
+                ellipsis = false,
+                text = function(ctx)
+                  local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
+                  return kind_icon
+                end,
+                -- Optionally, you may also use the highlights from mini.icons
+                highlight = function(ctx)
+                  local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+                  return hl
+                end,
               },
-              components = {
-                kind_icon = {
-                  ellipsis = false,
-                  text = function(ctx)
-                    local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
-                    return kind_icon
-                  end,
-                  -- Optionally, you may also use the highlights from mini.icons
-                  highlight = function(ctx)
-                    local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
-                    return hl
-                  end,
-                }
-              }
-            }
+            },
+          },
         },
-  
+
         -- Show documentation when selecting a completion item
         documentation = { auto_show = true, auto_show_delay_ms = 500 },
-  
+
         -- Display a preview of the selected item on the current line
         ghost_text = { enabled = true },
 
@@ -887,10 +884,10 @@ require('lazy').setup({
           selection = { preselect = true, auto_insert = false },
         },
       },
-  
+
       signature = { enabled = false },
     },
-    opts_extend = { "sources.default" }
+    opts_extend = { 'sources.default' },
   },
 
   { -- You can easily change to a different colorscheme.
@@ -914,6 +911,15 @@ require('lazy').setup({
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'BufReadPost', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+
+    config = function()
+      require('lualine').setup()
+    end,
+  },
+
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
@@ -935,17 +941,19 @@ require('lazy').setup({
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
+      --local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      -- statusline.setup { use_icons = vim.g.have_nerd_font }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
+      -- statusline.section_location = function()
+      --  return '%2l:%-2v'
+      -- end
+
+      -- vim.g.ministatusline_disable = true
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
@@ -987,7 +995,7 @@ require('lazy').setup({
         -- config
       }
     end,
-    dependencies = { {'nvim-tree/nvim-web-devicons'}}
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
