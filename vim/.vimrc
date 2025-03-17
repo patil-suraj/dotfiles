@@ -273,3 +273,20 @@ au FileType python inoremap <buffer> $f #--- <esc>a
 autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \| PlugInstall --sync | source $MYVIMRC
 \| endif
+
+" Enhanced command-line completion
+set wildmenu
+set wildmode=list:longest,full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+
+" Search for visually selected text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>t wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__md BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" Show trailing whitespace and spaces before tabs
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
