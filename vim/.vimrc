@@ -1,12 +1,12 @@
 "----------------------------------------
 " Basic Settings
 "----------------------------------------
-set nocompatible              
-let mapleader=" "             
+set nocompatible
+let mapleader=" "
 set number
 set relativenumber
-set cursorline          
-set mouse=a     
+set cursorline
+set mouse=a
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -27,19 +27,52 @@ nnoremap <leader>q :q<cr>
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
-syntax on 
+syntax on
 
 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * silent! checktime
 
+" Persistent undo
+" set undodir=~/.vim/undodir
+" set undofile
+
+" Copy to system clipboard
+vnoremap <leader>y "+y
+nnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+
+" Quickly edit/reload vimrc
+nnoremap <leader>ec :e $MYVIMRC<CR>
+nnoremap <leader>sc :source $MYVIMRC<CR>
+
+" Toggle relative line numbers
+nnoremap <leader>rl :set relativenumber!<CR>
+
+" Quick buffer navigation
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprevious<CR>
+nnoremap <leader>bd :bdelete<CR>
+
+" Remap Esc to exit terminal mode
+tnoremap <Esc> <C-\><C-n>
+
+" Change current directory to file's directory
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" UndoTree toggle
+nnoremap <leader>u :UndotreeToggle<CR>
+
+" Search and replace word under cursor
+nnoremap <leader>r :%s/\<<C-r><C-w>\>//g<Left><Left>
+
 "----------------------------------------
 " UI Configuration
 "----------------------------------------
-set guicursor+=a:blinkon1    
-set laststatus=2             
-set noshowmode               
-set signcolumn=yes           
+set guicursor+=a:blinkon1
+set laststatus=2
+set noshowmode
+set signcolumn=yes
 set background=dark
 set scrolloff=10
 
@@ -119,7 +152,16 @@ nnoremap <leader>sv :vsplit<CR>
 nnoremap <C-h> <C-w>h       
 nnoremap <C-j> <C-w>j       
 nnoremap <C-k> <C-w>k       
-nnoremap <C-l> <C-w>l       
+nnoremap <C-l> <C-w>l
+
+" Better split resizing
+nnoremap <silent> <leader>+ :vertical resize +5<CR>
+nnoremap <silent> <leader>- :vertical resize -5<CR>
+" Continuous resizing with Alt/Option key
+nnoremap <silent> <M-l> :vertical resize +1<CR>
+nnoremap <silent> <M-h> :vertical resize -1<CR>
+nnoremap <silent> <M-k> :resize +1<CR>
+nnoremap <silent> <M-j> :resize -1<CR>
 
 " Tab settings
 set tabline=%!MyTabLine()    
@@ -192,6 +234,14 @@ let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_extensions = []
 
+" Git Integration
+Plug 'tpope/vim-fugitive'               " Git commands in Vim
+Plug 'airblade/vim-gitgutter'           " Shows git diff in the sign column
+
+" Text manipulation
+Plug 'tpope/vim-surround'               " Easily change surroundings (parentheses, brackets, etc.)
+Plug 'tpope/vim-commentary'             " Comment/uncomment with gc
+Plug 'jiangmiao/auto-pairs'             " Auto-close brackets, quotes, etc.
 call plug#end()
 
 "----------------------------------------
@@ -280,9 +330,7 @@ set wildmode=list:longest,full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 
 " Search for visually selected text
-vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>t wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__md BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " Show trailing whitespace and spaces before tabs
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -290,3 +338,20 @@ match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
+
+"----------------------------------------
+" Git Integration Settings
+"----------------------------------------
+" Fugitive shortcuts
+nnoremap <leader>gs :Git<CR>            " Git status
+nnoremap <leader>gc :Git commit<CR>     " Git commit
+nnoremap <leader>gd :Gdiffsplit<CR>     " Git diff
+nnoremap <leader>gb :Git blame<CR>      " Git blame
+nnoremap <leader>gl :Gclog<CR>          " Git log
+
+" GitGutter settings
+let g:gitgutter_enabled = 1
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '~'
+let g:gitgutter_sign_removed = '-'
+nnoremap <leader>gg :GitGutterToggle<CR>
