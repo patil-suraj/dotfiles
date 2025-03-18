@@ -2,6 +2,7 @@
 " Basic Settings
 "----------------------------------------
 set nocompatible
+set encoding=UTF-8
 let mapleader=" "
 set number
 set relativenumber
@@ -103,10 +104,10 @@ nnoremap N Nzz
 "----------------------------------------
 " Search Settings
 "----------------------------------------
-set ignorecase               
-set smartcase                
-set incsearch                
-set hlsearch                 
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -141,17 +142,17 @@ set noswapfile
 " Window and Tab Management
 "----------------------------------------
 " Split settings
-set splitbelow               
-set splitright     
+set splitbelow
+set splitright
 
 " Window split shortcuts
 nnoremap <leader>sh :split<CR>
 nnoremap <leader>sv :vsplit<CR>
 
 " Window navigation
-nnoremap <C-h> <C-w>h       
-nnoremap <C-j> <C-w>j       
-nnoremap <C-k> <C-w>k       
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Better split resizing
@@ -164,11 +165,11 @@ nnoremap <silent> <M-k> :resize +1<CR>
 nnoremap <silent> <M-j> :resize -1<CR>
 
 " Tab settings
-set tabline=%!MyTabLine()    
-nnoremap <leader>tn :tabnew<CR>     
+set tabline=%!MyTabLine()
+nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>tc :tabclose<CR>
 nnoremap <leader>to :tabonly<CR>
-nnoremap <leader>tl :tabnext<CR>    
+nnoremap <leader>tl :tabnext<CR>
 nnoremap <leader>th :tabprevious<CR>
 
 " Custom tab line functions
@@ -205,34 +206,33 @@ call plug#begin('~/.vim/plugged')
 " Theme and UI
 Plug 'morhetz/gruvbox'
 Plug 'Yggdroot/indentLine'  " Add indentation guides
-Plug 'itchyny/lightline.vim'
-
-" File Navigation
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'      
-Plug 'preservim/nerdtree'    
-
-" Code Navigation
-" Plug 'universal-ctags/ctags' 
-" Plug 'ludovicchabant/vim-gutentags'
-
-" Search
-Plug 'nvim-lua/plenary.nvim'
-
-" Python Development
-" Plug 'davidhalter/jedi-vim'          
-Plug 'Vimjas/vim-python-pep8-indent' 
-Plug 'vim-python/python-syntax'
-Plug 'tmhedberg/SimpylFold'    
-
 Plug 'ryanoasis/vim-devicons'
-
+"Plug 'itchyny/lightline.vim'
 Plug 'vim-airline/vim-airline'
 " enable status line always
 set laststatus=2
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_extensions = []
+let g:airline_powerline_fonts = 1
+
+" File Navigation
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdtree'
+
+" Code Navigation
+" Plug 'universal-ctags/ctags'
+" Plug 'ludovicchabant/vim-gutentags'
+
+" Search
+Plug 'nvim-lua/plenary.nvim'
+
+" Python Development
+" Plug 'davidhalter/jedi-vim'
+"Plug 'Vimjas/vim-python-pep8-indent'
+"Plug 'vim-python/python-syntax'
+"Plug 'tmhedberg/SimpylFold'
 
 " Git Integration
 Plug 'tpope/vim-fugitive'               " Git commands in Vim
@@ -262,6 +262,7 @@ nnoremap <leader>ig :IndentLinesToggle<CR> " Toggle indent guides with <space>ig
 " let NERDTreeMapOpenInTab='<ENTER>'
 let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden=0
+let g:NERDTreeMinimalUI = 1
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=35
 nnoremap <leader>e :NERDTreeToggle<cr>
