@@ -22,4 +22,14 @@ return {
       vim.cmd 'colorscheme gruvbox-material'
     end,
   },
+
+  {
+    'projekt0n/github-nvim-theme',
+    priority = 1000,
+    name = 'github-theme',
+    lazy = false,
+    config = function()
+      --vim.cmd 'colorscheme github_dark'
+    end,
+  },
 }
