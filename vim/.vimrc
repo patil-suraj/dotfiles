@@ -56,7 +56,7 @@ nnoremap <leader>bp :bprevious<CR>
 nnoremap <leader>bd :bdelete<CR>
 
 " Remap Esc to exit terminal mode
-tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc> <C-\\><C-n>
 
 " Change current directory to file's directory
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
