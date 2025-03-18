@@ -96,10 +96,11 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Window resizing
-vim.keymap.set('n', '<leader>rk', ':resize +2<CR>', { desc = 'Increase window height' })
-vim.keymap.set('n', '<leader>rj', ':resize -2<CR>', { desc = 'Decrease window height' })
-vim.keymap.set('n', '<leader>rh', ':vertical resize -2<CR>', { desc = 'Decrease window width' })
-vim.keymap.set('n', '<leader>rl', ':vertical resize +2<CR>', { desc = 'Increase window width' })
+-- Continuous resizing with Alt/Option key
+vim.keymap.set('n', '<M-l>', ':vertical resize +1<CR>', { desc = 'Increase window width', silent = true })
+vim.keymap.set('n', '<M-h>', ':vertical resize -1<CR>', { desc = 'Decrease window width', silent = true })
+vim.keymap.set('n', '<M-k>', ':resize +1<CR>', { desc = 'Increase window height', silent = true })
+vim.keymap.set('n', '<M-j>', ':resize -1<CR>', { desc = 'Decrease window height', silent = true })
 
 vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Save file' })
 vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = 'Quit' })
@@ -111,6 +112,11 @@ vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close tab' })
 vim.keymap.set('n', '<leader>to', ':tabonly<CR>', { desc = 'Close other tabs' })
 vim.keymap.set('n', '<leader>th', ':tabprevious<CR>', { desc = 'Previous tab' })
 vim.keymap.set('n', '<leader>tl', ':tabnext<CR>', { desc = 'Next tab' })
+
+-- Buffer management
+vim.keymap.set('n', '<leader>bn', ':bnext<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<leader>bp', ':bprevious<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<leader>bd', ':bdelete<CR>', { desc = 'Delete buffer' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
