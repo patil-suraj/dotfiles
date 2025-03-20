@@ -265,13 +265,13 @@ let NERDTreeShowHidden=0
 let g:NERDTreeMinimalUI = 1
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=30
+let g:NERDTreeHijackNetrw = 0
 nnoremap <leader>e :NERDTreeToggle<cr>
 nnoremap <leader>nb :NERDTreeFromBookmark<Space>
 nnoremap <leader>bf :NERDTreeToggle<CR>:Buffers<CR> " Show buffer list
 nnoremap <leader>nf :NERDTreeFind<cr>
 " Close NERDTree if it's the last window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
 
 " FZF
 " File search
