@@ -143,8 +143,8 @@ set splitright
 
 " Use solid characters for window separators
 set fillchars+=vert:│
-set fillchars+=stl:―
-set fillchars+=stlnc:―
+" set fillchars+=stl:―
+" set fillchars+=stlnc:―
 
 " Window split shortcuts
 nnoremap <leader>sh :split<CR>
