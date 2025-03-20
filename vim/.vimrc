@@ -43,10 +43,6 @@ vnoremap <leader>y "+y
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+Y
 
-" Quickly edit/reload vimrc
-nnoremap <leader>ec :e $MYVIMRC<CR>
-nnoremap <leader>sc :source $MYVIMRC<CR>
-
 " Toggle relative line numbers
 nnoremap <leader>rl :set relativenumber!<CR>
 
@@ -145,6 +141,11 @@ set noswapfile
 set splitbelow
 set splitright
 
+" Use solid characters for window separators
+set fillchars+=vert:│
+set fillchars+=stl:―
+set fillchars+=stlnc:―
+
 " Window split shortcuts
 nnoremap <leader>sh :split<CR>
 nnoremap <leader>sv :vsplit<CR>
@@ -159,10 +160,10 @@ nnoremap <C-l> <C-w>l
 nnoremap <silent> <leader>+ :vertical resize +5<CR>
 nnoremap <silent> <leader>- :vertical resize -5<CR>
 " Continuous resizing with Alt/Option key
-nnoremap <silent> <M-l> :vertical resize +1<CR>
-nnoremap <silent> <M-h> :vertical resize -1<CR>
-nnoremap <silent> <M-k> :resize +1<CR>
-nnoremap <silent> <M-j> :resize -1<CR>
+nnoremap <silent> <M-l> :vertical resize +2<CR>
+nnoremap <silent> <M-h> :vertical resize -2<CR>
+nnoremap <silent> <M-k> :resize +2<CR>
+nnoremap <silent> <M-j> :resize -2<CR>
 
 " Tab settings
 set tabline=%!MyTabLine()
@@ -204,10 +205,9 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Theme and UI
-Plug 'morhetz/gruvbox'
+Plug 'sainnhe/everforest'
 Plug 'Yggdroot/indentLine'  " Add indentation guides
 Plug 'ryanoasis/vim-devicons'
-"Plug 'itchyny/lightline.vim'
 Plug 'vim-airline/vim-airline'
 " enable status line always
 set laststatus=2
@@ -216,23 +216,21 @@ let g:airline_right_sep=''
 let g:airline_extensions = []
 let g:airline_powerline_fonts = 1
 
+
 " File Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 
 " Code Navigation
-" Plug 'universal-ctags/ctags'
-" Plug 'ludovicchabant/vim-gutentags'
-
-" Search
-Plug 'nvim-lua/plenary.nvim'
+Plug 'universal-ctags/ctags'
+Plug 'ludovicchabant/vim-gutentags'
 
 " Python Development
-" Plug 'davidhalter/jedi-vim'
-"Plug 'Vimjas/vim-python-pep8-indent'
-"Plug 'vim-python/python-syntax'
-"Plug 'tmhedberg/SimpylFold'
+Plug 'davidhalter/jedi-vim'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'vim-python/python-syntax'
+Plug 'tmhedberg/SimpylFold'
 
 " Git Integration
 Plug 'tpope/vim-fugitive'               " Git commands in Vim
@@ -248,7 +246,9 @@ call plug#end()
 " Plugin Settings
 "----------------------------------------
 " Theme
-colorscheme gruvbox
+let g:everforest_better_performance = 1
+colorscheme everforest
+let g:airline_theme = 'everforest'
 
 " IndentLine settings
 let g:indentLine_char = '┊'  " Character to use for indentation lines
@@ -264,7 +264,7 @@ let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden=0
 let g:NERDTreeMinimalUI = 1
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-let g:NERDTreeWinSize=35
+let g:NERDTreeWinSize=30
 nnoremap <leader>e :NERDTreeToggle<cr>
 nnoremap <leader>nb :NERDTreeFromBookmark<Space>
 nnoremap <leader>bf :NERDTreeToggle<CR>:Buffers<CR> " Show buffer list

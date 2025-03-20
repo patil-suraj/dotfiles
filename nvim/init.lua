@@ -118,6 +118,10 @@ vim.keymap.set('n', '<leader>bn', ':bnext<CR>', { desc = 'Next buffer' })
 vim.keymap.set('n', '<leader>bp', ':bprevious<CR>', { desc = 'Previous buffer' })
 vim.keymap.set('n', '<leader>bd', ':bdelete<CR>', { desc = 'Delete buffer' })
 
+-- Center screen after scrolling half page
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll half page up' })
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll half page down' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -334,6 +338,15 @@ require('lazy').setup({
             results = { '━', '┃', '━', '┃', '┣', '┫', '┛', '┗' },
             preview = { '━', '┃', '━', '┃', '┏', '┓', '┛', '┗' },
           },
+          vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+          },
         },
         extensions = {
           ['ui-select'] = {
@@ -458,7 +471,7 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          map('<leader>ss', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[S]earch [S]ymbols')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
@@ -817,8 +830,8 @@ require('lazy').setup({
       keymap = {
         ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<C-e>'] = { 'hide' },
-        -- ['<C-y>'] = { 'select_and_accept' },
-        ['<Tab>'] = { 'select_and_accept' },
+        ['<C-y>'] = { 'select_and_accept' },
+        --['<Tab>'] = { 'select_and_accept' },
 
         ['<C-j>'] = { 'select_next', 'fallback' },
         ['<C-k>'] = { 'select_prev', 'fallback' },
