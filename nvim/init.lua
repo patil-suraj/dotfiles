@@ -97,10 +97,10 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- Window resizing
 -- Continuous resizing with Alt/Option key
-vim.keymap.set('n', '<M-l>', ':vertical resize +1<CR>', { desc = 'Increase window width', silent = true })
-vim.keymap.set('n', '<M-h>', ':vertical resize -1<CR>', { desc = 'Decrease window width', silent = true })
-vim.keymap.set('n', '<M-k>', ':resize +1<CR>', { desc = 'Increase window height', silent = true })
-vim.keymap.set('n', '<M-j>', ':resize -1<CR>', { desc = 'Decrease window height', silent = true })
+vim.keymap.set('n', '<M-right>', ':vertical resize +1<CR>', { desc = 'Increase window width', silent = true })
+vim.keymap.set('n', '<M-left>', ':vertical resize -1<CR>', { desc = 'Decrease window width', silent = true })
+vim.keymap.set('n', '<M-up>', ':resize +1<CR>', { desc = 'Increase window height', silent = true })
+vim.keymap.set('n', '<M-down>', ':resize -1<CR>', { desc = 'Decrease window height', silent = true })
 
 vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Save file' })
 vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = 'Quit' })
@@ -121,6 +121,14 @@ vim.keymap.set('n', '<leader>bd', ':bdelete<CR>', { desc = 'Delete buffer' })
 -- Center screen after scrolling half page
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll half page up' })
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll half page down' })
+
+-- move line up and down , should also work for selected lines
+vim.keymap.set('n', '<M-j>', ':m .+1<CR>==', { desc = 'Move line down' })
+vim.keymap.set('n', '<M-k>', ':m .-2<CR>==', { desc = 'Move line up' })
+vim.keymap.set('i', '<M-j>', '<Esc>:m .+1<CR>==gi', { desc = 'Move line down' })
+vim.keymap.set('i', '<M-k>', '<Esc>:m .-2<CR>==gi', { desc = 'Move line up' })
+vim.keymap.set('v', '<M-j>', ":m '>+1<CR>gv=gv", { desc = 'Move line down' })
+vim.keymap.set('v', '<M-k>', ":m '<-2<CR>gv=gv", { desc = 'Move line up' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`

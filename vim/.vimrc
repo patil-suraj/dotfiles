@@ -223,8 +223,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 
 " Code Navigation
-Plug 'universal-ctags/ctags'
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'universal-ctags/ctags'
+"Plug 'ludovicchabant/vim-gutentags'
 
 " Python Development
 Plug 'davidhalter/jedi-vim'
