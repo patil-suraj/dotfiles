@@ -30,6 +30,10 @@ vim.opt.shiftwidth = 4 -- Indentation width
 vim.opt.expandtab = true -- Use spaces for tab
 vim.opt.termguicolors = true -- True color support
 
+-- Set a comic/Ghibli-inspired font (for GUI Neovim clients)
+vim.opt.guifont = 'Cascadia Code:h12'
+-- Other good options: "Cartoonist Hand", "Patrick Hand", "Komika Text", "Bubblegum Sans"
+
 -- Save undo history
 vim.opt.undofile = true
 
@@ -129,6 +133,15 @@ vim.keymap.set('i', '<M-j>', '<Esc>:m .+1<CR>==gi', { desc = 'Move line down' })
 vim.keymap.set('i', '<M-k>', '<Esc>:m .-2<CR>==gi', { desc = 'Move line up' })
 vim.keymap.set('v', '<M-j>', ":m '>+1<CR>gv=gv", { desc = 'Move line down' })
 vim.keymap.set('v', '<M-k>', ":m '<-2<CR>gv=gv", { desc = 'Move line up' })
+
+-- Dignostic messages
+vim.diagnostic.config {
+  --virtual_text = { current_line = true },
+  virtual_lines = {
+    -- Only show virtual line diagnostics for the current cursor line
+    current_line = true,
+  },
+}
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -329,7 +342,11 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        pickers = {
+          find_files = {
+            theme = 'ivy',
+          },
+        },
         defaults = {
           sorting_strategy = 'ascending',
           layout_strategy = 'vertical',
@@ -623,7 +640,6 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
         'stylua', -- Used to format Lua code
         'ruff', -- Python linter and formatter
         'ruff-lsp', -- Ruff language server

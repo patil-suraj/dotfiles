@@ -30,8 +30,23 @@ return {
     config = function()
       -- Optionally configure and load the colorscheme
       -- directly inside the plugin declaration.
+      vim.o.background = 'light'
+      vim.g.everforest_better_performance = 1
       vim.g.everforest_enable_italic = true
       vim.cmd.colorscheme 'everforest'
+    end,
+  },
+
+  {
+    'patil-suraj/ghibli.nvim',
+    lazy = false, -- make sure we load this during startup
+    priority = 1000, -- load before other plugins
+    config = function()
+      require('ghibli').setup {
+        style = 'dark', -- dark, light
+      }
+      -- require('ghibli').colorscheme()
+      -- vim.cmd.colorscheme 'ghibli'
     end,
   },
 
@@ -46,5 +61,9 @@ return {
       -- See Configuration section for options
     },
     -- See Commands section for default commands if you want to lazy load on them
+  },
+
+  {
+    'ThePrimeagen/vim-be-good',
   },
 }

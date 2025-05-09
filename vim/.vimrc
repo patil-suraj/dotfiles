@@ -14,6 +14,9 @@ if exists('+termguicolors')
     set termguicolors
 endif
 
+" determine if running on a remote server (via SSH)
+let g:is_remote = ($SSH_CLIENT != "" || $SSH_TTY != "")
+
 " use clipboard
 if has('mac')
   set clipboard=unnamed     " macOS clipboard
@@ -70,7 +73,7 @@ set guicursor+=a:blinkon1
 set laststatus=2
 set noshowmode
 set signcolumn=yes
-set background=dark
+set background=light
 set scrolloff=10
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
@@ -220,14 +223,20 @@ let g:airline_powerline_fonts = 1
 " File Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
+" Only load NERDTree locally (not on server)
+if !g:is_remote
+  Plug 'preservim/nerdtree'
+endif
 
 " Code Navigation
 "Plug 'universal-ctags/ctags'
 "Plug 'ludovicchabant/vim-gutentags'
 
 " Python Development
-Plug 'davidhalter/jedi-vim'
+" Only load Jedi locally (not on server)
+if !g:is_remote
+  Plug 'davidhalter/jedi-vim'
+endif
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'vim-python/python-syntax'
 Plug 'tmhedberg/SimpylFold'
@@ -247,6 +256,7 @@ call plug#end()
 "----------------------------------------
 " Theme
 let g:everforest_better_performance = 1
+let g:everforest_background = 'hard'
 colorscheme everforest
 let g:airline_theme = 'everforest'
 
@@ -259,19 +269,20 @@ let g:indentLine_conceallevel = 2
 nnoremap <leader>ig :IndentLinesToggle<CR> " Toggle indent guides with <space>ig
 
 " NERDTree
-" let NERDTreeMapOpenInTab='<ENTER>'
-let g:NERDTreeWinPos = "left"
-let NERDTreeShowHidden=0
-let g:NERDTreeMinimalUI = 1
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-let g:NERDTreeWinSize=30
-let g:NERDTreeHijackNetrw = 0
-nnoremap <leader>e :NERDTreeToggle<cr>
-nnoremap <leader>nb :NERDTreeFromBookmark<Space>
-nnoremap <leader>bf :NERDTreeToggle<CR>:Buffers<CR> " Show buffer list
-nnoremap <leader>nf :NERDTreeFind<cr>
-" Close NERDTree if it's the last window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+if !g:is_remote
+  let g:NERDTreeWinPos = "left"
+  let NERDTreeShowHidden=0
+  let g:NERDTreeMinimalUI = 1
+  let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+  let g:NERDTreeWinSize=30
+  let g:NERDTreeHijackNetrw = 0
+  nnoremap <leader>e :NERDTreeToggle<cr>
+  nnoremap <leader>nb :NERDTreeFromBookmark<Space>
+  nnoremap <leader>bf :NERDTreeToggle<CR>:Buffers<CR> " Show buffer list
+  nnoremap <leader>nf :NERDTreeFind<cr>
+  " Close NERDTree if it's the last window
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+endif
 
 " FZF
 " File search
@@ -296,25 +307,27 @@ autocmd QuickFixCmdPost * cwindow
 "----------------------------------------
 " Python Settings
 "----------------------------------------
-"let g:python_highlight_all = 1       
-"let g:jedi#show_call_signatures = 1  
+"let g:python_highlight_all = 1
+if !g:is_remote
+  "let g:jedi#show_call_signatures = 1
+endif
 
 " Code folding
 set foldmethod=indent
 set foldlevel=99
-nnoremap <space>f za                
+nnoremap <space>f za
 au FileType python map <buffer> F :set foldmethod=indent<cr>
 
 " Python navigation
-au FileType python map <buffer> <leader>1 /class<CR>  
-au FileType python map <buffer> <leader>2 /def<CR>    
-au FileType python map <buffer> <leader>C ?class<CR>  
-au FileType python map <buffer> <leader>D ?def<CR>    
+au FileType python map <buffer> <leader>1 /class<CR>
+au FileType python map <buffer> <leader>2 /def<CR>
+au FileType python map <buffer> <leader>C ?class<CR>
+au FileType python map <buffer> <leader>D ?def<CR>
 
 " Python shortcuts
-au FileType python inoremap <buffer> $r return 
-au FileType python inoremap <buffer> $i import 
-au FileType python inoremap <buffer> $p print 
+au FileType python inoremap <buffer> $r return
+au FileType python inoremap <buffer> $i import
+au FileType python inoremap <buffer> $p print
 au FileType python inoremap <buffer> $f #--- <esc>a
 
 "----------------------------------------
