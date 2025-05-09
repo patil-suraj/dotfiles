@@ -73,7 +73,7 @@ set guicursor+=a:blinkon1
 set laststatus=2
 set noshowmode
 set signcolumn=yes
-set background=light
+set background=dark
 set scrolloff=10
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
@@ -299,6 +299,9 @@ nnoremap <leader>t :Tags<CR>
 nnoremap <leader>s. :History<CR>
 " Search in current buffer
 nnoremap <leader>/ :BLines<CR>
+
+" FZF ignore patterns for Python projects
+let $FZF_DEFAULT_COMMAND = 'find . -type f -not -path "*/\.git/*" -not -path "*/\node_modules/*" -not -path "*/\venv/*" -not -path "*/\.venv/*" -not -path "*/__pycache__/*" -not -path "*/\env/*" -not -path "*/.ipynb_checkpoints/*" -not -path "*/\dist/*" -not -path "*/\build/*" -not -path "*/*.egg-info/*" -not -path "*/\.ruff_cache/*"'
 
 " Open quickfix window automatically after grep
 autocmd QuickFixCmdPost * cwindow
