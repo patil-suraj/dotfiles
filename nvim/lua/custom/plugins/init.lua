@@ -38,19 +38,6 @@ return {
   },
 
   {
-    'patil-suraj/ghibli.nvim',
-    lazy = false, -- make sure we load this during startup
-    priority = 1000, -- load before other plugins
-    config = function()
-      require('ghibli').setup {
-        style = 'dark', -- dark, light
-      }
-      -- require('ghibli').colorscheme()
-      -- vim.cmd.colorscheme 'ghibli'
-    end,
-  },
-
-  {
     'CopilotC-Nvim/CopilotChat.nvim',
     dependencies = {
       { 'github/copilot.vim' }, -- or zbirenbaum/copilot.lua
