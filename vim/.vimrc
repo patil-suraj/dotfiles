@@ -228,9 +228,6 @@ if !g:is_remote
   Plug 'preservim/nerdtree'
 endif
 
-" Code Navigation
-"Plug 'universal-ctags/ctags'
-"Plug 'ludovicchabant/vim-gutentags'
 
 " Python Development
 " Only load Jedi locally (not on server)
@@ -289,10 +286,10 @@ endif
 nnoremap <leader>sf :Files<CR>
 " Buffer search
 nnoremap <leader>sb :Buffers<CR>
-" Grep search (keep buffers)
-nnoremap <leader>sg :silent grep -r "" .<Left><Left><Left>
+" Live grep search (search as you type) - requires ripgrep (https://github.com/BurntSushi/ripgrep) installed
+nnoremap <leader>sg :Rg<CR>
 " Word under cursor grep search
-nnoremap <leader>sw :silent grep -r <cword> .<CR>
+nnoremap <leader>sw :Rg <C-R><C-W><CR>
 " Tags search
 nnoremap <leader>t :Tags<CR>
 " Search history
