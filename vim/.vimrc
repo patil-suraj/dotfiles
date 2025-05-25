@@ -79,7 +79,7 @@ set scrolloff=10
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
+if (getenv('TERM_PROGRAM') != 'Apple_Terminal')
   if (has("nvim"))
     "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -329,6 +329,244 @@ au FileType python inoremap <buffer> $r return
 au FileType python inoremap <buffer> $i import
 au FileType python inoremap <buffer> $p print
 au FileType python inoremap <buffer> $f #--- <esc>a
+
+"----------------------------------------
+" Mini.ai-like Text Objects
+"----------------------------------------
+" Enhanced text objects similar to mini.ai nvim plugin
+" Arguments text object (function arguments)
+onoremap aa :<C-u>call <SID>SelectArguments('a')<CR>
+onoremap ia :<C-u>call <SID>SelectArguments('i')<CR>
+vnoremap aa :<C-u>call <SID>SelectArguments('a')<CR>
+vnoremap ia :<C-u>call <SID>SelectArguments('i')<CR>
+
+" Function to select function arguments
+function! s:SelectArguments(type)
+  let l:saved_pos = getpos('.')
+
+  " Find opening parenthesis
+  if search('(', 'bcW') == 0
+    call setpos('.', l:saved_pos)
+    return
+  endif
+
+  let l:start_pos = getpos('.')
+
+  " Find matching closing parenthesis
+  normal! %
+  let l:end_pos = getpos('.')
+
+  if a:type == 'a'
+    " Select around (including parentheses)
+    call setpos('.', l:start_pos)
+    normal! v
+    call setpos('.', l:end_pos)
+  else
+    " Select inside (excluding parentheses)
+    call setpos('.', l:start_pos)
+    normal! l
+    normal! v
+    call setpos('.', l:end_pos)
+    normal! h
+  endif
+endfunction
+
+" Next/Last text object variants
+" Next parentheses
+onoremap in( :<C-u>call <SID>SelectNextParens('i')<CR>
+onoremap an( :<C-u>call <SID>SelectNextParens('a')<CR>
+vnoremap in( :<C-u>call <SID>SelectNextParens('i')<CR>
+vnoremap an( :<C-u>call <SID>SelectNextParens('a')<CR>
+
+" Last parentheses
+onoremap il( :<C-u>call <SID>SelectLastParens('i')<CR>
+onoremap al( :<C-u>call <SID>SelectLastParens('a')<CR>
+vnoremap il( :<C-u>call <SID>SelectLastParens('i')<CR>
+vnoremap al( :<C-u>call <SID>SelectLastParens('a')<CR>
+
+" Next quotes
+onoremap in' :<C-u>call <SID>SelectNextQuotes("'", 'i')<CR>
+onoremap an' :<C-u>call <SID>SelectNextQuotes("'", 'a')<CR>
+onoremap in" :<C-u>call <SID>SelectNextQuotes('"', 'i')<CR>
+onoremap an" :<C-u>call <SID>SelectNextQuotes('"', 'a')<CR>
+vnoremap in' :<C-u>call <SID>SelectNextQuotes("'", 'i')<CR>
+vnoremap an' :<C-u>call <SID>SelectNextQuotes("'", 'a')<CR>
+vnoremap in" :<C-u>call <SID>SelectNextQuotes('"', 'i')<CR>
+vnoremap an" :<C-u>call <SID>SelectNextQuotes('"', 'a')<CR>
+
+" Last quotes
+onoremap il' :<C-u>call <SID>SelectLastQuotes("'", 'i')<CR>
+onoremap al' :<C-u>call <SID>SelectLastQuotes("'", 'a')<CR>
+onoremap il" :<C-u>call <SID>SelectLastQuotes('"', 'i')<CR>
+onoremap al" :<C-u>call <SID>SelectLastQuotes('"', 'a')<CR>
+vnoremap il' :<C-u>call <SID>SelectLastQuotes("'", 'i')<CR>
+vnoremap al' :<C-u>call <SID>SelectLastQuotes("'", 'a')<CR>
+vnoremap il" :<C-u>call <SID>SelectLastQuotes('"', 'i')<CR>
+vnoremap al" :<C-u>call <SID>SelectLastQuotes('"', 'a')<CR>
+
+" Functions for next/last text objects
+function! s:SelectNextParens(type)
+  let l:saved_pos = getpos('.')
+
+  if search('(', 'W') == 0
+    call setpos('.', l:saved_pos)
+    return
+  endif
+
+  let l:start_pos = getpos('.')
+  normal! %
+  let l:end_pos = getpos('.')
+
+  if a:type == 'a'
+    call setpos('.', l:start_pos)
+    normal! v
+    call setpos('.', l:end_pos)
+  else
+    call setpos('.', l:start_pos)
+    normal! l
+    normal! v
+    call setpos('.', l:end_pos)
+    normal! h
+  endif
+endfunction
+
+function! s:SelectLastParens(type)
+  let l:saved_pos = getpos('.')
+
+  if search('(', 'bW') == 0
+    call setpos('.', l:saved_pos)
+    return
+  endif
+
+  let l:start_pos = getpos('.')
+  normal! %
+  let l:end_pos = getpos('.')
+
+  if a:type == 'a'
+    call setpos('.', l:start_pos)
+    normal! v
+    call setpos('.', l:end_pos)
+  else
+    call setpos('.', l:start_pos)
+    normal! l
+    normal! v
+    call setpos('.', l:end_pos)
+    normal! h
+  endif
+endfunction
+
+function! s:SelectNextQuotes(quote, type)
+  let l:saved_pos = getpos('.')
+
+  if search(a:quote, 'W') == 0
+    call setpos('.', l:saved_pos)
+    return
+  endif
+
+  let l:start_pos = getpos('.')
+
+  if search(a:quote, 'W') == 0
+    call setpos('.', l:saved_pos)
+    return
+  endif
+
+  let l:end_pos = getpos('.')
+
+  if a:type == 'a'
+    call setpos('.', l:start_pos)
+    normal! v
+    call setpos('.', l:end_pos)
+  else
+    call setpos('.', l:start_pos)
+    normal! l
+    normal! v
+    call setpos('.', l:end_pos)
+    normal! h
+  endif
+endfunction
+
+function! s:SelectLastQuotes(quote, type)
+  let l:saved_pos = getpos('.')
+  let l:saved_line = line('.')
+  let l:saved_col = col('.')
+
+  " Find the quote pair before the cursor
+  " First, find the closing quote before cursor
+  if search(a:quote, 'bW') == 0
+    call setpos('.', l:saved_pos)
+    return
+  endif
+
+  let l:end_pos = getpos('.')
+  
+  " Then find the opening quote before the closing quote
+  if search(a:quote, 'bW') == 0
+    call setpos('.', l:saved_pos)
+    return
+  endif
+
+  let l:start_pos = getpos('.')
+
+  " Verify we found a proper pair (both quotes on same line and start before end)
+  if l:start_pos[1] != l:end_pos[1] || l:start_pos[2] >= l:end_pos[2]
+    call setpos('.', l:saved_pos)
+    return
+  endif
+
+  if a:type == 'a'
+    " Select around (including quotes)
+    call setpos('.', l:start_pos)
+    normal! v
+    call setpos('.', l:end_pos)
+  else
+    " Select inside (excluding quotes)
+    call setpos('.', l:start_pos)
+    normal! l
+    normal! v
+    call setpos('.', l:end_pos)
+    normal! h
+  endif
+endfunction
+
+" Cursor movement to text object edges (similar to g[ and g])
+nnoremap g[ :<C-u>call <SID>MoveToLeftEdge()<CR>
+nnoremap g] :<C-u>call <SID>MoveToRightEdge()<CR>
+
+function! s:MoveToLeftEdge()
+  let l:chars = ['(', '[', '{', '"', "'"]
+  let l:min_col = col('$')
+  let l:target_col = 0
+
+  for char in l:chars
+    let l:pos = searchpos(char, 'bcnW')
+    if l:pos[0] == line('.') && l:pos[1] > 0 && l:pos[1] < l:min_col
+      let l:min_col = l:pos[1]
+      let l:target_col = l:pos[1]
+    endif
+  endfor
+
+  if l:target_col > 0
+    call cursor(line('.'), l:target_col)
+  endif
+endfunction
+
+function! s:MoveToRightEdge()
+  let l:chars = [')', ']', '}', '"', "'"]
+  let l:max_col = 0
+  let l:target_col = 0
+
+  for char in l:chars
+    let l:pos = searchpos(char, 'cnW')
+    if l:pos[0] == line('.') && l:pos[1] > l:max_col
+      let l:max_col = l:pos[1]
+      let l:target_col = l:pos[1]
+    endif
+  endfor
+
+  if l:target_col > 0
+    call cursor(line('.'), l:target_col)
+  endif
+endfunction
 
 "----------------------------------------
 " Auto Commands
